@@ -1,0 +1,328 @@
+import '../app_settings/app_settings_widget.dart';
+import '../auth/auth_util.dart';
+import '../backend/backend.dart';
+import '../flutter_flow/flutter_flow_radio_button.dart';
+import '../flutter_flow/flutter_flow_theme.dart';
+import '../flutter_flow/flutter_flow_util.dart';
+import '../flutter_flow/flutter_flow_widgets.dart';
+import '../home_page/home_page_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+class UserProfileWidget extends StatefulWidget {
+  const UserProfileWidget({Key key}) : super(key: key);
+
+  @override
+  _UserProfileWidgetState createState() => _UserProfileWidgetState();
+}
+
+class _UserProfileWidgetState extends State<UserProfileWidget> {
+  String radioButtonValue;
+  TextEditingController textController1;
+  TextEditingController textController2;
+  bool switchListTileValue;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    textController1 = TextEditingController(text: '[User Name]');
+    textController2 = TextEditingController(text: '[User Email]');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      key: scaffoldKey,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        automaticallyImplyLeading: false,
+        title: Text(
+          'Edit Profile',
+          style: FlutterFlowTheme.of(context).subtitle1.override(
+                fontFamily: 'Lexend Deca',
+                color: Colors.black,
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+              ),
+        ),
+        actions: [],
+        centerTitle: false,
+        elevation: 2,
+      ),
+      backgroundColor: Color(0xFFF1F4F8),
+      body: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 1, 0, 0),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 500,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    child: Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 20),
+                      child: ListView(
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        children: [
+                          Text(
+                            'Official Name',
+                            style: FlutterFlowTheme.of(context).bodyText1,
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Expanded(
+                                  child: TextFormField(
+                                    controller: textController1,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      labelText: 'Your Nam',
+                                      hintText: 'What do people call you...?',
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Lexend Deca',
+                                            color: Color(0xFF8B97A2),
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0xFFDBE2E7),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0xFFDBE2E7),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Lexend Deca',
+                                          color: Color(0xFF090F13),
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Text(
+                            'You are:',
+                            style: FlutterFlowTheme.of(context).bodyText1,
+                          ),
+                          FlutterFlowRadioButton(
+                            options: ['Food Donor', 'Food Distributor'],
+                            onChanged: (value) {
+                              setState(() => radioButtonValue = value);
+                            },
+                            optionHeight: 25,
+                            textStyle:
+                                FlutterFlowTheme.of(context).bodyText1.override(
+                                      fontFamily: 'Poppins',
+                                      color: Colors.black,
+                                    ),
+                            buttonPosition: RadioButtonPosition.left,
+                            direction: Axis.vertical,
+                            radioButtonColor: Colors.blue,
+                            inactiveRadioButtonColor: Color(0x8A000000),
+                            toggleable: false,
+                            horizontalAlignment: WrapAlignment.start,
+                            verticalAlignment: WrapCrossAlignment.start,
+                          ),
+                          Text(
+                            'Phone Number',
+                            style: FlutterFlowTheme.of(context).bodyText1,
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Expanded(
+                                  child: TextFormField(
+                                    controller: textController2,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      labelText: 'Email Address',
+                                      hintText: 'Enter a new email',
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Lexend Deca',
+                                            color: Color(0xFF8B97A2),
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0xFFDBE2E7),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0xFFDBE2E7),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Lexend Deca',
+                                          color: Color(0xFF090F13),
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Text(
+                            'Your will get notifications from Food Donors/Receivers near you as per your Location, according to your preference of being a Donor or Receiver.',
+                            style: FlutterFlowTheme.of(context).bodyText1,
+                          ),
+                          SwitchListTile(
+                            value: switchListTileValue ??= true,
+                            onChanged: (newValue) =>
+                                setState(() => switchListTileValue = newValue),
+                            title: Text(
+                              'Recieve Notifications',
+                              style: FlutterFlowTheme.of(context)
+                                  .subtitle2
+                                  .override(
+                                    fontFamily: 'Lexend Deca',
+                                    color: Color(0xFF151B1E),
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                            ),
+                            subtitle: Text(
+                              'Turn on notifications.',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyText2
+                                  .override(
+                                    fontFamily: 'Lexend Deca',
+                                    color: Color(0xFF8B97A2),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                            ),
+                            tileColor: Colors.white,
+                            activeColor: Color(0xFF4B39EF),
+                            activeTrackColor: Color(0x8D4B39EF),
+                            dense: false,
+                            controlAffinity: ListTileControlAffinity.trailing,
+                          ),
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                FFButtonWidget(
+                                  onPressed: () async {
+                                    if (/* NOT RECOMMENDED */ '${textController1.text}${radioButtonValue}' ==
+                                        'true') {
+                                      final usersUpdateData =
+                                          createUsersRecordData(
+                                        displayName: textController1.text,
+                                        phoneNumber: textController2.text,
+                                        uid: radioButtonValue,
+                                      );
+                                      await currentUserReference
+                                          .update(usersUpdateData);
+                                    }
+                                    await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            AppSettingsWidget(),
+                                      ),
+                                    );
+                                  },
+                                  text: 'Save Changes',
+                                  options: FFButtonOptions(
+                                    width: 230,
+                                    height: 50,
+                                    color: Color(0xFF4B39EF),
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .bodyText2
+                                        .override(
+                                          fontFamily: 'Lexend Deca',
+                                          color: Colors.white,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                    elevation: 3,
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1,
+                                    ),
+                                    borderRadius: 8,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          InkWell(
+            onTap: () async {
+              await Navigator.push(
+                context,
+                PageTransition(
+                  type: PageTransitionType.fade,
+                  duration: Duration(milliseconds: 0),
+                  reverseDuration: Duration(milliseconds: 0),
+                  child: HomePageWidget(),
+                ),
+              );
+            },
+            child: Icon(
+              Icons.home,
+              color: Colors.black,
+              size: 24,
+            ),
+          ),
+          Text(
+            'Click home to see all of your fellow like -minded people',
+            textAlign: TextAlign.center,
+            style: FlutterFlowTheme.of(context).bodyText1,
+          ),
+        ],
+      ),
+    );
+  }
+}
